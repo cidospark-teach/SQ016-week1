@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,40 @@ namespace BankApp
             PrintLine(windowWidth);
             PrintRow(windowWidth, "SQ016 First Week1 Task Solution - Clone a Bank App");
             PrintLine(windowWidth);
+        }
+
+        public static void DisplayOperations(int windowWidth, User user)
+        {
+
+            Thread.Sleep(5000);
+            Console.Clear();
+
+            AppHelper.DisplayTitle(windowWidth);
+
+            Console.WriteLine();
+            Console.WriteLine($"Welcome! {user.FirstName} - you are logged-In");
+
+            Console.WriteLine();
+            Console.WriteLine("[1] Create Account \t | \t[2] Withdrawal");
+            Console.WriteLine();
+            Console.WriteLine("[3] Transfer \t | \t[4] Deposit ");
+            Console.WriteLine();
+            Console.WriteLine("[5] Logout \t");
+            Console.WriteLine();
+
+            while (GlobalState.tranxChoice < 1 || GlobalState.tranxChoice > 4)
+            {
+                if (GlobalState.counter2 > 0)
+                {
+                    Console.WriteLine("Invalid entry!");
+                }
+                Console.Write("\nChoose a transaction you wish to perform\t");
+                GlobalState.counter2 += 1;
+
+                GlobalState.tranxChoice = Convert.ToInt32(Console.ReadLine());
+            }
+
+            Console.WriteLine();
         }
     }
 }

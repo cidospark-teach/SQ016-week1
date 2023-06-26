@@ -19,7 +19,7 @@ namespace BankApp.Service
             _accountRepo = accountRepo;
         }
 
-        public Account CreateAccount(User user, Account account)
+        public Account CreateAccount(Account account)
         {
             if (account.AccountName.Length < 3)
                 throw new Exception("Account name should be more than 3 characters");

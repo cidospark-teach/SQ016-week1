@@ -13,3 +13,18 @@ C:\Users\hp Envy\source\repos\SQ014\Solution to Tasks\BankAppProj\BankingApp.Dat
 C:\Users\hp Envy\source\repos\SQ014\Solution to Tasks\BankAppProj\BankingApp.Data\obj\Debug\net6.0\refint\BankingApp.Data.dll
 C:\Users\hp Envy\source\repos\SQ014\Solution to Tasks\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.pdb
 C:\Users\hp Envy\source\repos\SQ014\Solution to Tasks\BankAppProj\BankingApp.Data\obj\Debug\net6.0\ref\BankingApp.Data.dll
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\bin\Debug\net6.0\BankingApp.Data.deps.json
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\bin\Debug\net6.0\BankingApp.Data.dll
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\bin\Debug\net6.0\BankingApp.Data.pdb
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\bin\Debug\net6.0\BankApp.Models.dll
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\bin\Debug\net6.0\BankApp.Models.pdb
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.csproj.AssemblyReference.cache
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.AssemblyInfoInputs.cache
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.AssemblyInfo.cs
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.csproj.CoreCompileInputs.cache
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.csproj.CopyComplete
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.dll
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\refint\BankingApp.Data.dll
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\BankingApp.Data.pdb
+C:\Users\hp Envy\Desktop\SQ016\SQ016-week1\BankAppProj\BankingApp.Data\obj\Debug\net6.0\ref\BankingApp.Data.dll

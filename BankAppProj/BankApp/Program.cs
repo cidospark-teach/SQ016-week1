@@ -8,6 +8,7 @@ GlobalConfig.Initialize();
 
 #region global state
 User user = new User();
+Account account = new Account();
 #endregion
 
 Console.WriteLine();
@@ -87,36 +88,43 @@ if (action == 2)
     }
 }
 
-Thread.Sleep(5000);
-Console.Clear();
-
-AppHelper.DisplayTitle(windowWidth);
-
-Console.WriteLine();
-Console.WriteLine($"Welcome! {user.FirstName} - you are logged-In");
-
-Console.WriteLine();
-Console.WriteLine("[1] Deposit \t | \t[2] Widthdrawal");
-Console.WriteLine();
-Console.WriteLine("[3] Transfer \t | \t[4] Logout ");
-Console.WriteLine();
+AppHelper.DisplayOperations(windowWidth, user);
 
 
-int tranx = 0;
-int counter2 = 0;
-while (tranx < 1 || tranx > 4)
+//int tranx = 0;
+//int counter2 = 0;
+
+
+if(GlobalState.tranxChoice == 1)
 {
-    if (counter2 > 0)
-    {
-        Console.WriteLine("Invalid entry!");
-    }
-    Console.Write("\nChoose a transaction you wish to carryout\t");
-    counter2++;
+    Console.Write("Enter an account name\t");
+    string accName = Console.ReadLine();
+    Console.Write("Select account type: [1] Saving \t [2] Current");
+    int accType = int.Parse(Console.ReadLine());
 
-    tranx = Convert.ToInt32(Console.ReadLine());
+    var defaultAccType = AccountType.SAVINGS;
+    try
+    {
+        var newAcc = new Account
+        {
+            AccountName = accName,
+            AccountType = defaultAccType,
+            UserId = user.Id,
+            User = user
+        };
+
+        if(accType == 1) { defaultAccType = AccountType.SAVINGS; }
+        else { defaultAccType = AccountType.CURRENT; }
+
+        account = GlobalConfig.AccountService.CreateAccount(newAcc);
+        Console.WriteLine($"{newAcc.AccountType} account created!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }
 
-Console.WriteLine();
 
-
+AppHelper.DisplayOperations(windowWidth, user);
 

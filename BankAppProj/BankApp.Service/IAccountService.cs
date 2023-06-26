@@ -10,7 +10,7 @@ namespace BankApp.Service
 {
     public interface IAccountService
     {
-        Account CreateAccount(User user, Account account);
+        Account CreateAccount(Account account);
         public List<Account> GetAll();
         public int RowCount();
         public Account GetById(string Id);
