@@ -72,7 +72,7 @@ namespace BankApp
             Console.WriteLine("[5] Print Statement | [6] Logout \t");
             Console.WriteLine();
 
-            while (GlobalState.tranxChoice < 1 || GlobalState.tranxChoice > 4)
+            while (GlobalState.tranxChoice < 1 || GlobalState.tranxChoice > 6)
             {
                 if (GlobalState.counter2 > 0)
                 {

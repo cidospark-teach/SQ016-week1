@@ -14,6 +14,7 @@ namespace BankApp.Service
         BankTransaction MakeWithdrawal(Account sender, BankTransaction tranx);
         BankTransaction MakeTransfer(Account sender, Account receiver, BankTransaction tranx);
 
+        List<BankTransaction> GetUserTransactions(string accountNum);
 
     }
 }

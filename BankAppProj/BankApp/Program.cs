@@ -7,14 +7,17 @@ using System.Net.Mail;
 
 GlobalConfig.Initialize();
 
-#region file global state
+#region file global variable states
 User user = new User();
 Account account = new Account();
+int windowWidth = Console.WindowWidth - 2;
 #endregion
+
 
 Console.WriteLine();
 
-int windowWidth = Console.WindowWidth - 2;
+
+#region Operations pipeline
 
 AppHelper.DisplayTitle(windowWidth);
 
@@ -89,9 +92,9 @@ if (action == 2)
     }
 }
 
-AppHelper.DisplayOperations(windowWidth, user, account); 
 
-if(GlobalState.tranxChoice == 1)
+AppHelper.DisplayOperations(windowWidth, user, account);
+if (GlobalState.tranxChoice == 1)
 {
     Console.Write("Enter an account name\t");
     string accName = Console.ReadLine();
@@ -123,7 +126,6 @@ if(GlobalState.tranxChoice == 1)
 
 
 AppHelper.DisplayOperations(windowWidth, user, account);
-
 if (GlobalState.tranxChoice == 2 || GlobalState.tranxChoice == 3)
 {
     decimal amt = 0;
@@ -194,8 +196,8 @@ if (GlobalState.tranxChoice == 2 || GlobalState.tranxChoice == 3)
     }
 }
 
-AppHelper.DisplayOperations(windowWidth, user, account);
 
+AppHelper.DisplayOperations(windowWidth, user, account);
 if (GlobalState.tranxChoice == 4)
 {
     Console.Write("How much do you intend to deposit?\t");
@@ -245,8 +247,47 @@ if (GlobalState.tranxChoice == 4)
 
 
 AppHelper.DisplayOperations(windowWidth, user, account);
-
-if(GlobalState.tranxChoice == 5)
+if (GlobalState.tranxChoice == 5)
 {
-    Console.WriteLine("Coming soon...");
+    Console.WriteLine("\n");
+    string[] columns = new string[] { "FULL NAME", "ACCOUNT NUMBER", "ACCOUNT TYPE", "TRANX TYPE", "AMOUNT", " NOTE" };
+    AppHelper.PrintLine(windowWidth);
+    AppHelper.PrintRow(windowWidth, columns);
+    AppHelper.PrintLine(windowWidth);
+
+    var results = GlobalConfig.BankTranxService.GetUserTransactions(account.Id);
+    foreach(var row in results)
+    {
+        string[] rowItems = { };
+        if (row.TransactionType.ToString().ToUpper().Equals("WITHDRAWAL") || row.TransactionType.ToString().ToUpper().Equals("TRANSFER"))
+        {
+            rowItems = new string[] { row.RecieverAccountName, 
+                                      row.RecieverAccountNumber, 
+                                      row.AccountType.ToString(),
+                                      row.TransactionType.ToString(),
+                                      $"-{row.Amount.ToString()}",
+                                      row.Description,
+            };
+        }
+
+        if (row.TransactionType.ToString().ToUpper().Equals("DEPOSIT"))
+        {
+            rowItems = new string[] { row.SenderAccountName,
+                                      row.SenderAccountNumber,
+                                      row.AccountType.ToString(),
+                                      row.TransactionType.ToString(),
+                                      $"+{row.Amount.ToString()}",
+                                      row.Description,
+            };
+        }
+
+        AppHelper.PrintLine(windowWidth);
+        AppHelper.PrintRow(windowWidth, rowItems);
+        AppHelper.PrintLine(windowWidth);
+    }
 }
+#endregion
+
+//#region Routing
+//AppHelper.DisplayOperations(windowWidth, user, account);
+//#endregion

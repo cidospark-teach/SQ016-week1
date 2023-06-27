@@ -73,5 +73,15 @@ namespace BankApp.Service
             return tranx;
         }
 
+        public List<BankTransaction> GetUserTransactions(string accountNum)
+        {
+            var trans = _trnxRepo.GetAllTransactions();
+            if (trans.Count > 0) { 
+                return trans.Where(x => x.SenderAccountNumber == accountNum ||
+                            x.RecieverAccountNumber == accountNum).ToList();
+            }
+
+            throw new Exception("No result found for user's transactions");
+        }
     }
 }
