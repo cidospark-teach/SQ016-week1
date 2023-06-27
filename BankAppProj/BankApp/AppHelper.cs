@@ -49,7 +49,7 @@ namespace BankApp
             PrintLine(windowWidth);
         }
 
-        public static void DisplayOperations(int windowWidth, User user)
+        public static void DisplayOperations(int windowWidth, User user, Account account)
         {
 
             Thread.Sleep(5000);
@@ -59,13 +59,17 @@ namespace BankApp
 
             Console.WriteLine();
             Console.WriteLine($"Welcome! {user.FirstName} - you are logged-In");
+            if(account != null && !string.IsNullOrEmpty(account.AccountNumber)) {
+                Console.WriteLine($"{account.AccountNumber} - {account.AccountName} " +
+                    $"[{account.AccountType.ToString().ToLower()}] account.");
+            }
 
             Console.WriteLine();
             Console.WriteLine("[1] Create Account \t | \t[2] Withdrawal");
             Console.WriteLine();
             Console.WriteLine("[3] Transfer \t | \t[4] Deposit ");
             Console.WriteLine();
-            Console.WriteLine("[5] Logout \t");
+            Console.WriteLine("[5] Print Statement | [6] Logout \t");
             Console.WriteLine();
 
             while (GlobalState.tranxChoice < 1 || GlobalState.tranxChoice > 4)

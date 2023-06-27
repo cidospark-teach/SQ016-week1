@@ -49,9 +49,22 @@ namespace BankApp.Service
             throw new Exception($"Could not find account with id: {Id}");
         }
 
+        public List<Account> GetUserAccounts(string userId)
+        {
+            var accounts = GetAll().Where(x => x.UserId == userId);
+            if (accounts.Count() > 0) return accounts.ToList();
+
+            throw new Exception($"Could not find account for user with id: {userId}");
+        }
+
         public int RowCount()
         {
             return _accountRepo.GetAllAccounts().Count;
+        }
+
+        public bool UpdateAccount(string id, Account account)
+        {
+            return _accountRepo.UpdateAccount(id, account);
         }
 
 

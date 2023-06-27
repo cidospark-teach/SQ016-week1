@@ -12,6 +12,8 @@ namespace BankApp.Service
     {
         Account CreateAccount(Account account);
         public List<Account> GetAll();
+        public List<Account> GetUserAccounts(string userId);
+        public bool UpdateAccount(string id, Account account);
         public int RowCount();
         public Account GetById(string Id);
     }
