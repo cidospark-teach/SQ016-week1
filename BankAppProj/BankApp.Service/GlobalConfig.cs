@@ -10,10 +10,10 @@ namespace BankApp.Service
 {
     public static class GlobalConfig
     {
-        public static IUserRepository UserRepo;
-        public static IAccountRepository AccountRepo;
+        private static IUserRepository UserRepo;
+        private static IAccountRepository AccountRepo;
+        private static IBankTransactionRepository TranxRepo;
         public static IAccountService AccountService;
-        public static IBankTransactionRepository TranxRepo;
         public static IBankTransactionService BankTranxService;
         public static IUserService UserService;
         public static void Initialize()
