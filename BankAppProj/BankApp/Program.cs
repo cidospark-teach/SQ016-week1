@@ -93,201 +93,209 @@ if (action == 2)
 }
 
 
-AppHelper.DisplayOperations(windowWidth, user, account);
-if (GlobalState.tranxChoice == 1)
+while (GlobalState.tranxChoice != 6)
 {
-    Console.Write("Enter an account name\t");
-    string accName = Console.ReadLine();
-    Console.Write("Select account type: [1] Saving \t [2] Current");
-    int accType = int.Parse(Console.ReadLine());
-
-    var defaultAccType = AccountType.SAVINGS;
-    try
+    AppHelper.DisplayOperations(windowWidth, user, account);
+    if (GlobalState.tranxChoice == 1)
     {
-        var newAcc = new Account
+        Console.Write("Enter an account name\t");
+        string accName = Console.ReadLine();
+        Console.Write("Select account type: [1] Saving \t [2] Current\t");
+        int accType = int.Parse(Console.ReadLine());
+
+        var defaultAccType = AccountType.SAVINGS;
+        try
         {
-            AccountName = accName,
-            AccountType = defaultAccType,
-            UserId = user.Id,
-            User = user
-        };
+            var newAcc = new Account
+            {
+                AccountName = accName,
+                AccountType = defaultAccType,
+                UserId = user.Id,
+                User = user
+            };
 
-        if(accType == 1) { defaultAccType = AccountType.SAVINGS; }
-        else { defaultAccType = AccountType.CURRENT; }
+            if (accType == 1) { defaultAccType = AccountType.SAVINGS; }
+            else { defaultAccType = AccountType.CURRENT; }
 
-        account = GlobalConfig.AccountService.CreateAccount(newAcc);
-        Console.WriteLine($"{newAcc.AccountType} account created!");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-    }
-}
-
-
-AppHelper.DisplayOperations(windowWidth, user, account);
-if (GlobalState.tranxChoice == 2 || GlobalState.tranxChoice == 3)
-{
-    decimal amt = 0;
-    if(GlobalState.tranxChoice == 2)
-    {
-        Console.Write("How much do you intend to withdraw?\t");
-        amt = decimal.Parse(Console.ReadLine());
-    }
-
-    if(GlobalState.tranxChoice == 3)
-    {
-        Console.Write("How much do you intend to tranfer?\t");
-        amt = decimal.Parse(Console.ReadLine());
-    }
-
-    Console.Write("Receipient name");
-    string receipientName = Console.ReadLine();
-    Console.Write("Receipient number");
-    string receipientNumber = Console.ReadLine();
-    Console.Write("Note");
-    string note = Console.ReadLine();
-    Console.Write("From which account?: [1] Saving \t [2] Current");
-    int accType = int.Parse(Console.ReadLine());
-
-    var defaultAccType = AccountType.SAVINGS;
-    try
-    {
-        if (accType == 1) { defaultAccType = AccountType.SAVINGS; }
-        else { defaultAccType = AccountType.CURRENT; }
-
-        account = (GlobalConfig.AccountService.GetUserAccounts(user.Id))
-            .FirstOrDefault(x => x.AccountType == defaultAccType);
-
-        var tranx = new BankTransaction
+            account = GlobalConfig.AccountService.CreateAccount(newAcc);
+            Console.WriteLine($"{newAcc.AccountType} account created!");
+            GlobalState.tranxChoice = 0;
+        }
+        catch (Exception ex)
         {
-            TransactionType = TransactionType.WITHDRAWAL,
-            TransactionScope = TransactionScope.EXTERNAL,
-            TransactionStatus = TransactionStatus.COMPLETED,
-            SenderAccountName = account.AccountName,
-            SenderAccountNumber = account.AccountNumber,
-            RecieverAccountName = receipientName,
-            RecieverAccountNumber = receipientNumber,
-            Description = note,
-            AccountType = account.AccountType,
-            Amount = amt,
-        };
+            Console.WriteLine(ex.Message);
+            GlobalState.tranxChoice = 0;
+        }
+    }
 
+
+    if (GlobalState.tranxChoice == 2 || GlobalState.tranxChoice == 3)
+    {
+        decimal amt = 0;
         if (GlobalState.tranxChoice == 2)
         {
-            tranx.TransactionType= TransactionType.WITHDRAWAL;
-            tranx.TransactionScope= TransactionScope.EXTERNAL;
+            Console.Write("How much do you intend to withdraw?\t");
+            amt = decimal.Parse(Console.ReadLine());
         }
 
         if (GlobalState.tranxChoice == 3)
         {
-            tranx.TransactionType = TransactionType.TRANSFER;
-            tranx.TransactionScope = TransactionScope.INTERNAL;
+            Console.Write("How much do you intend to tranfer?\t");
+            amt = decimal.Parse(Console.ReadLine());
         }
 
-        account.Balance -= amt;
-        GlobalConfig.AccountService.UpdateAccount(account.Id, account);
-        GlobalConfig.BankTranxService.MakeWithdrawal(account, tranx);
-        Console.WriteLine($"Transaction added!");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-    }
-}
+        Console.Write("Receipient name");
+        string receipientName = Console.ReadLine();
+        Console.Write("Receipient number");
+        string receipientNumber = Console.ReadLine();
+        Console.Write("Note");
+        string note = Console.ReadLine();
+        Console.Write("From which account?: [1] Saving \t [2] Current\t");
+        int accType = int.Parse(Console.ReadLine());
 
-
-AppHelper.DisplayOperations(windowWidth, user, account);
-if (GlobalState.tranxChoice == 4)
-{
-    Console.Write("How much do you intend to deposit?\t");
-    decimal amt = decimal.Parse(Console.ReadLine());
-    Console.Write("Depositor name");
-    string receipientName = Console.ReadLine();
-    Console.Write("Depositor number");
-    string receipientNumber = Console.ReadLine();
-    Console.Write("Note");
-    string note = Console.ReadLine();
-    Console.Write("From which account?: [1] Saving \t [2] Current");
-    int accType = int.Parse(Console.ReadLine());
-
-    var defaultAccType = AccountType.SAVINGS;
-    try
-    {
-        if (accType == 1) { defaultAccType = AccountType.SAVINGS; }
-        else { defaultAccType = AccountType.CURRENT; }
-
-        account = (GlobalConfig.AccountService.GetUserAccounts(user.Id))
-            .FirstOrDefault(x => x.AccountType == defaultAccType);
-
-        var tranx = new BankTransaction
+        var defaultAccType = AccountType.SAVINGS;
+        try
         {
-            TransactionType = TransactionType.TRANSFER,
-            TransactionScope = TransactionScope.INTERNAL,
-            TransactionStatus = TransactionStatus.COMPLETED,
-            SenderAccountName = account.AccountName,
-            SenderAccountNumber = account.AccountNumber,
-            RecieverAccountName = receipientName,
-            RecieverAccountNumber = receipientNumber,
-            Description = note,
-            AccountType = account.AccountType,
-            Amount = amt,
-        };
+            if (accType == 1) { defaultAccType = AccountType.SAVINGS; }
+            else { defaultAccType = AccountType.CURRENT; }
 
-        account.Balance += amt;
-        GlobalConfig.AccountService.UpdateAccount(account.Id, account);
-        GlobalConfig.BankTranxService.MakeWithdrawal(account, tranx);
-        Console.WriteLine($"Transaction added!");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-    }
-}
+            account = (GlobalConfig.AccountService.GetUserAccounts(user.Id))
+                .FirstOrDefault(x => x.AccountType == defaultAccType);
 
+            var tranx = new BankTransaction
+            {
+                TransactionType = TransactionType.WITHDRAWAL,
+                TransactionScope = TransactionScope.EXTERNAL,
+                TransactionStatus = TransactionStatus.COMPLETED,
+                SenderAccountName = account.AccountName,
+                SenderAccountNumber = account.AccountNumber,
+                RecieverAccountName = receipientName,
+                RecieverAccountNumber = receipientNumber,
+                Description = note,
+                AccountType = account.AccountType,
+                Amount = amt,
+            };
 
-AppHelper.DisplayOperations(windowWidth, user, account);
-if (GlobalState.tranxChoice == 5)
-{
-    Console.WriteLine("\n");
-    string[] columns = new string[] { "FULL NAME", "ACCOUNT NUMBER", "ACCOUNT TYPE", "TRANX TYPE", "AMOUNT", " NOTE" };
-    AppHelper.PrintLine(windowWidth);
-    AppHelper.PrintRow(windowWidth, columns);
-    AppHelper.PrintLine(windowWidth);
+            if (GlobalState.tranxChoice == 2)
+            {
+                tranx.TransactionType = TransactionType.WITHDRAWAL;
+                tranx.TransactionScope = TransactionScope.EXTERNAL;
+            }
 
-    var results = GlobalConfig.BankTranxService.GetUserTransactions(account.Id);
-    foreach(var row in results)
-    {
-        string[] rowItems = { };
-        if (row.TransactionType.ToString().ToUpper().Equals("WITHDRAWAL") || row.TransactionType.ToString().ToUpper().Equals("TRANSFER"))
+            if (GlobalState.tranxChoice == 3)
+            {
+                tranx.TransactionType = TransactionType.TRANSFER;
+                tranx.TransactionScope = TransactionScope.INTERNAL;
+            }
+
+            account.Balance -= amt;
+            GlobalConfig.AccountService.UpdateAccount(account.Id, account);
+            GlobalConfig.BankTranxService.MakeWithdrawal(account, tranx);
+            Console.WriteLine($"Transaction added!");
+            GlobalState.tranxChoice = 0;
+        }
+        catch (Exception ex)
         {
-            rowItems = new string[] { row.RecieverAccountName, 
-                                      row.RecieverAccountNumber, 
+            Console.WriteLine(ex.Message);
+            GlobalState.tranxChoice = 0;
+        }
+    }
+
+
+    if (GlobalState.tranxChoice == 4)
+    {
+        Console.Write("How much do you intend to deposit?\t");
+        decimal amt = decimal.Parse(Console.ReadLine());
+        Console.Write("Depositor name");
+        string receipientName = Console.ReadLine();
+        Console.Write("Depositor number");
+        string receipientNumber = Console.ReadLine();
+        Console.Write("Note");
+        string note = Console.ReadLine();
+        Console.Write("From which account?: [1] Saving \t [2] Current\t");
+        int accType = int.Parse(Console.ReadLine());
+
+        var defaultAccType = AccountType.SAVINGS;
+        try
+        {
+            if (accType == 1) { defaultAccType = AccountType.SAVINGS; }
+            else { defaultAccType = AccountType.CURRENT; }
+
+            account = (GlobalConfig.AccountService.GetUserAccounts(user.Id))
+                .FirstOrDefault(x => x.AccountType == defaultAccType);
+
+            var tranx = new BankTransaction
+            {
+                TransactionType = TransactionType.TRANSFER,
+                TransactionScope = TransactionScope.INTERNAL,
+                TransactionStatus = TransactionStatus.COMPLETED,
+                SenderAccountName = account.AccountName,
+                SenderAccountNumber = account.AccountNumber,
+                RecieverAccountName = receipientName,
+                RecieverAccountNumber = receipientNumber,
+                Description = note,
+                AccountType = account.AccountType,
+                Amount = amt,
+            };
+
+            account.Balance += amt;
+            GlobalConfig.AccountService.UpdateAccount(account.Id, account);
+            GlobalConfig.BankTranxService.MakeDeposit(account, tranx);
+            Console.WriteLine($"Transaction added!");
+            GlobalState.tranxChoice = 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            GlobalState.tranxChoice = 0;
+        }
+    }
+
+
+    if (GlobalState.tranxChoice == 5)
+    {
+        Console.WriteLine("\n");
+        string[] columns = new string[] { "FULL NAME", "ACCOUNT NUMBER", "ACCOUNT TYPE", "TRANX TYPE", "AMOUNT", " NOTE" };
+        AppHelper.PrintLine(windowWidth);
+        AppHelper.PrintRow(windowWidth, columns);
+        AppHelper.PrintLine(windowWidth);
+
+        var results = GlobalConfig.BankTranxService.GetUserTransactions(account.AccountNumber);
+        foreach (var row in results)
+        {
+            string[] rowItems = { };
+            if (row.TransactionType.ToString().ToUpper().Equals("WITHDRAWAL") || row.TransactionType.ToString().ToUpper().Equals("TRANSFER"))
+            {
+                rowItems = new string[] { row.RecieverAccountName,
+                                      row.RecieverAccountNumber,
                                       row.AccountType.ToString(),
                                       row.TransactionType.ToString(),
                                       $"-{row.Amount.ToString()}",
                                       row.Description,
-            };
-        }
+                                     };
+            }
 
-        if (row.TransactionType.ToString().ToUpper().Equals("DEPOSIT"))
-        {
-            rowItems = new string[] { row.SenderAccountName,
+            if (row.TransactionType.ToString().ToUpper().Equals("DEPOSIT"))
+            {
+                rowItems = new string[] { row.SenderAccountName,
                                       row.SenderAccountNumber,
                                       row.AccountType.ToString(),
                                       row.TransactionType.ToString(),
                                       $"+{row.Amount.ToString()}",
                                       row.Description,
-            };
+                                     };
+            }
+
+            AppHelper.PrintRow(windowWidth, rowItems);
+            AppHelper.PrintLine(windowWidth);
         }
-
-        AppHelper.PrintLine(windowWidth);
-        AppHelper.PrintRow(windowWidth, rowItems);
-        AppHelper.PrintLine(windowWidth);
+        GlobalState.tranxChoice = 0;
+        Console.Write("\n\nPress any key to continue...");
+        Console.ReadLine();
     }
-}
-#endregion
+    #endregion
 
-//#region Routing
-//AppHelper.DisplayOperations(windowWidth, user, account);
-//#endregion
+    #region Routing
+    AppHelper.DisplayOperations(windowWidth, user, account);
+    #endregion
+}

@@ -69,7 +69,7 @@ namespace BankApp
             Console.WriteLine();
             Console.WriteLine("[3] Transfer \t | \t[4] Deposit ");
             Console.WriteLine();
-            Console.WriteLine("[5] Print Statement | [6] Logout \t");
+            Console.WriteLine("[5] Print Statement \t | [6] Logout");
             Console.WriteLine();
 
             while (GlobalState.tranxChoice < 1 || GlobalState.tranxChoice > 6)
